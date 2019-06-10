@@ -7,11 +7,12 @@ import { Usuario } from '../classes/usuario';
 })
 export class ChatService {
 
-  usuario: Usuario = null;
+  usuario: Usuario;
   constructor(public ws: WebsocketsService) {
-    this.usuario = this.ws.usuario;
+
   }
   sendMesagge(mensaje: string) {
+    this.usuario = this.ws.getUsuario();
     console.log(`emitiendo ${mensaje}`);
     const payload = {
       de: this.usuario.nombre,
@@ -25,11 +26,11 @@ export class ChatService {
     return this.ws.listen('mensaje-nuevo');
   }
 
-  getUsuario() {
-    return this.usuario;
-  }
-
   getMessagesPrivate() {
     return this.ws.listen('mensaje-privado');
+  }
+  getUsuariosActivos(){
+    return this.ws.listen('usuarios-activos');
+
   }
 }

@@ -7,13 +7,13 @@ import { Usuario } from '../classes/usuario';
 })
 export class WebsocketsService implements OnInit {
   public socketStatus = false;
-  public usuario: Usuario;
+  public usuario: Usuario = null;
   ngOnInit() {
 
   }
 
   constructor(private socket: Socket) {
-    this.checkStatus
+    this.checkStatus()
     this.cargarStorage();
   }
 
@@ -23,6 +23,7 @@ export class WebsocketsService implements OnInit {
     this.socket.on('connect', () => {
       console.log('conectado al servidor');
       this.socketStatus = true;
+      this.cargarStorage();
     });
 
     this.socket.on('disconnect', () => {
@@ -51,20 +52,22 @@ export class WebsocketsService implements OnInit {
   }
 
   guardarStorage() {
-    console.log(this.usuario);
+    console.log('cfff');
     localStorage.setItem('usuario', JSON.stringify(this.usuario));
   }
 
   cargarStorage() {
-    if (localStorage.getItem('usuario')) {
 
+    if (localStorage.getItem('usuario')) {
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
       this.loginWS(this.usuario.nombre);
-
     }
+
   }
 
   getUsuario() {
-    return this.usuario;
+
+    return JSON.parse(localStorage.getItem('usuario'));
+
   }
 }

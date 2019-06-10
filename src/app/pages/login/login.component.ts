@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   ingresar() {
-    console.log(this.nombre);
     this.ws.loginWS(this.nombre).then(res => {
       this.router.navigate(['/mensajes']);
     });
