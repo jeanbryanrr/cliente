@@ -16,6 +16,7 @@ export class ListaUsuariosComponent implements OnInit {
 
   ngOnInit() {
     this.usuariosActivosObs = this.cs.getUsuariosActivos();
+    this.cs.emitirUsuariosActivos();
   }
 
 }

@@ -16,7 +16,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   elemento: HTMLElement;
   usuario: Usuario;
   constructor(public chat: ChatService) {
-   
+
   }
 
   ngOnInit() {
@@ -24,6 +24,13 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatMensajeSubs = this.chat.getMessage().subscribe(mensaje => {
 
       this.mensajes.push(mensaje);
+      setTimeout(() => {
+        this.elemento.scrollTop = this.elemento.scrollHeight;
+      }, 50);
+    });
+
+    this.chat.getMessagesPrivate().subscribe((res: any) => {
+      this.mensajes.push(res);
       setTimeout(() => {
         this.elemento.scrollTop = this.elemento.scrollHeight;
       }, 50);

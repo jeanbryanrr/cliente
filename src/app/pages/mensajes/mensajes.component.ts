@@ -14,8 +14,12 @@ export class MensajesComponent implements OnInit {
 
   ngOnInit() {
     this.usuario = this.chat.getUsuario();
-      console.log( 'mmmm',this.chat.getUsuario());
+    console.log('mmmm', this.chat.getUsuario());
 
+  }
+
+  logout() {
+    this.chat.logoutWS();
   }
 
 }

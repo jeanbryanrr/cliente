@@ -15,8 +15,6 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.chat.getMessagesPrivate().subscribe(res => {
-      console.log(res);
-    });
+  
   }
 }

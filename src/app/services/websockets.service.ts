@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Usuario } from '../classes/usuario';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class WebsocketsService implements OnInit {
 
   }
 
-  constructor(private socket: Socket) {
+  constructor(private socket: Socket,private router: Router) {
     this.checkStatus()
     this.cargarStorage();
   }
@@ -33,7 +34,7 @@ export class WebsocketsService implements OnInit {
   }
 
 
-  emit(evento: string, payload: any, callback?: Function) {
+  emit(evento: string, payload?: any, callback?: Function) {
     this.socket.emit(evento, payload, callback)
   }
 
@@ -69,5 +70,17 @@ export class WebsocketsService implements OnInit {
 
     return JSON.parse(localStorage.getItem('usuario'));
 
+  }
+
+  logoutWS() {
+    this.usuario = null;
+    localStorage.removeItem('usuario');
+    const payload = {
+      nombre: ''
+    }
+    this.emit('configurar-usuario', payload,()=>{
+      
+    });
+    this.router.navigate(['/login']);
   }
 }
